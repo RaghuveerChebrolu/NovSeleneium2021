@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="1" ignored="0" total="3" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="1946" started-at="2021-11-12T03:35:44Z" finished-at="2021-11-12T03:35:46Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="1946" started-at="2021-11-12T03:35:44Z" finished-at="2021-11-12T03:35:46Z">
+      <class name="com.testNg.TestCases.testNgTestCases">
+        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="beforeSuite" is-config="true" duration-ms="4159" started-at="2021-11-12T03:35:40Z" finished-at="2021-11-12T03:35:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeSuite -->
+        <test-method status="PASS" signature="beforeTest()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="beforeTest" is-config="true" duration-ms="0" started-at="2021-11-12T03:35:44Z" finished-at="2021-11-12T03:35:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeTest -->
+        <test-method status="PASS" signature="beforeClass()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="beforeClass" is-config="true" duration-ms="0" started-at="2021-11-12T03:35:44Z" finished-at="2021-11-12T03:35:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClass -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="beforeMethod" is-config="true" duration-ms="1" started-at="2021-11-12T03:35:44Z" finished-at="2021-11-12T03:35:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="ValidateGMOOnLineLoadedSuccessfully()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="ValidateGMOOnLineLoadedSuccessfully" duration-ms="29" started-at="2021-11-12T03:35:44Z" finished-at="2021-11-12T03:35:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ValidateGMOOnLineLoadedSuccessfully -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="afterMethod" is-config="true" duration-ms="0" started-at="2021-11-12T03:35:44Z" finished-at="2021-11-12T03:35:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2021-11-12T03:35:44Z" finished-at="2021-11-12T03:35:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="ValidateEnterGmoOnLine()[pri:1, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="ValidateEnterGmoOnLine" duration-ms="1624" started-at="2021-11-12T03:35:44Z" depends-on-methods="com.testNg.TestCases.testNgTestCases.ValidateGMOOnLineLoadedSuccessfully" finished-at="2021-11-12T03:35:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ValidateEnterGmoOnLine -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="afterMethod" is-config="true" duration-ms="1" started-at="2021-11-12T03:35:46Z" finished-at="2021-11-12T03:35:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="beforeMethod" is-config="true" duration-ms="1" started-at="2021-11-12T03:35:46Z" finished-at="2021-11-12T03:35:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="FAIL" signature="ValidatePlaceOrderPage()[pri:2, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="ValidatePlaceOrderPage" duration-ms="221" started-at="2021-11-12T03:35:46Z" depends-on-methods="com.testNg.TestCases.testNgTestCases.ValidateEnterGmoOnLine" finished-at="2021-11-12T03:35:46Z">
+          <exception class="java.lang.NoSuchMethodError">
+            <message>
+              <![CDATA[org.testng.Assert.assertEquals(FF)V]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.NoSuchMethodError: org.testng.Assert.assertEquals(FF)V
+at com.testNg.TestCases.testNgTestCases.ValidatePlaceOrderPage(testNgTestCases.java:72)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.lang.reflect.Method.invoke(Method.java:498)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:580)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:716)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:988)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NoSuchMethodError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ValidatePlaceOrderPage -->
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="afterTest" is-config="true" duration-ms="0" started-at="2021-11-12T03:35:46Z" finished-at="2021-11-12T03:35:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterTest -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="afterMethod" is-config="true" duration-ms="0" started-at="2021-11-12T03:35:46Z" finished-at="2021-11-12T03:35:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="afterClass()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="afterClass" is-config="true" duration-ms="0" started-at="2021-11-12T03:35:46Z" finished-at="2021-11-12T03:35:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterClass -->
+        <test-method status="PASS" signature="afterSuite()[pri:0, instance:com.testNg.TestCases.testNgTestCases@1a968a59]" name="afterSuite" is-config="true" duration-ms="0" started-at="2021-11-12T03:35:46Z" finished-at="2021-11-12T03:35:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterSuite -->
+      </class> <!-- com.testNg.TestCases.testNgTestCases -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
