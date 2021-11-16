@@ -1,6 +1,7 @@
 package com.testNg.TestCases;
 
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.google.inject.spi.Elements;
 
@@ -17,7 +18,9 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -26,6 +29,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
@@ -40,6 +46,7 @@ public class testNgTestCases2 {
 	@Test(priority = 0)
 	public void ValidateGMOOnLineLoadedSuccessfully() {
 		System.out.println("inside testcase1");
+		waitForPageToLoad();
 		String GMOtitle = driver.getTitle();
 		System.out.println(GMOtitle);
 		Assert.assertEquals(GMOtitle, "Welcome to Green Mountain Outpost");
@@ -50,6 +57,7 @@ public class testNgTestCases2 {
 	public void ValidateEnterGmoOnLine() throws InterruptedException {
 		System.out.println("inside ValidateEnterGmoOnLine");
 		driver.findElement(By.name("bSubmit")).click();
+		waitForPageToLoad();
 		driver.findElement(By.name("QTY_BACKPACKS")).clear();
 		driver.findElement(By.name("QTY_BACKPACKS")).sendKeys("4");
 		driver.findElement(By.name("QTY_BACKPACKS")).clear();
@@ -65,6 +73,7 @@ public class testNgTestCases2 {
 	
 	@Test(priority = 2,dependsOnMethods = { "ValidateEnterGmoOnLine" })
 	public void ValidatePlaceOrderPage(){
+		waitForPageToLoad();
 		String Title = driver.findElement(By.xpath("//h1[contains(text(),'Place Order')]")).getText();
 		System.out.println("Title: "+Title);
 		Assert.assertEquals(Title, "Place Order");
@@ -83,7 +92,48 @@ public class testNgTestCases2 {
 		Assert.assertEquals(calculatedFloatValue, FloatValuefromApplication);
 	}
 	
-	
+	@Test(priority=3)
+	public void ValidatingAlerts(){
+		System.out.println("inside ValidatingAlerts");
+		driver.navigate().to(ObjProperty.getProperty("AlertURL"));
+		waitForPageToLoad();
+		driver.findElement(By.id("alertButton")).click();
+		Alert ObjalertbuttonT = driver.switchTo().alert();
+		String alertbuttonText = ObjalertbuttonT.getText();
+		System.out.println("alertbuttonText: "+alertbuttonText);
+		Assert.assertEquals(alertbuttonText, "You clicked a button");
+		ObjalertbuttonT.accept();
+		
+		driver.findElement(By.id("timerAlertButton")).click();
+		WebDriverWait wait = new WebDriverWait (driver,60);
+		wait.until(ExpectedConditions.alertIsPresent());
+		Alert ObjectTimerAlert = driver.switchTo().alert();
+		String TimerAlertText = ObjectTimerAlert.getText();
+		System.out.println("TimerAlertText: "+TimerAlertText);
+		//Assert.assertEquals(TimerAlertText, "This alert appeared after 5 second");
+		
+		SoftAssert objSF = new SoftAssert();
+		objSF.assertEquals(TimerAlertText, "This alert appeared after 5 second");
+		ObjalertbuttonT.accept();
+		
+		driver.findElement(By.id("confirmButton")).click();
+		Alert ObjectconfirmButton = driver.switchTo().alert();
+		String confirmButtonAlertText = ObjectconfirmButton.getText();
+		System.out.println("confirmButtonAlertText: "+confirmButtonAlertText);
+		Assert.assertEquals(confirmButtonAlertText, "Do you confirm action?");
+		ObjalertbuttonT.dismiss();
+		//span[@id='confirmResult']
+		String confirmbuttontext = driver.findElement(By.xpath("//span[@id='confirmResult']")).getText();
+		Assert.assertEquals(confirmbuttontext, "You selected Cancel");
+		
+		driver.findElement(By.id("promtButton")).click();
+		Alert ObjectpromtButton= driver.switchTo().alert();
+		ObjectpromtButton.sendKeys("How are you");
+		ObjalertbuttonT.accept();
+		String promptResultext = driver.findElement(By.id("promptResult")).getText();
+		Assert.assertEquals(promptResultext, "You entered How are you");
+		objSF.assertAll();
+	}
 	
 	@BeforeMethod
 	public void beforeMethod() {
@@ -199,5 +249,16 @@ public class testNgTestCases2 {
 		//to find the locator type and it will process if it is able to identify the element locator 
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		
+	}
+	
+	public void waitForPageToLoad() {
+		ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+			}
+		};
+		// explicit wait -> Applicable for one webEllement
+		WebDriverWait wait = new WebDriverWait(driver, 60);//60 seconds 
+		wait.until(pageLoadCondition);
 	}
 }
