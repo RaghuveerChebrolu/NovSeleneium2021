@@ -22,6 +22,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -133,6 +134,28 @@ public class testNgTestCases2 {
 		String promptResultext = driver.findElement(By.id("promptResult")).getText();
 		Assert.assertEquals(promptResultext, "You entered How are you");
 		objSF.assertAll();
+	}
+	
+	@Test(priority=4)
+	public void ValditingHAndlingOfFrames(){
+		System.out.println("inside ValditingHAndlingOfFrames");
+		driver.navigate().to(ObjProperty.getProperty("FramesURL"));
+		waitForPageToLoad();
+		driver.switchTo().frame("singleframe");
+		
+		driver.findElement(By.xpath("//input[@type='text']")).sendKeys("inside single frame");
+		
+		driver.switchTo().defaultContent();
+		driver.findElement(By.xpath("//a[contains(text(),'in an Iframe')]")).click();
+	
+		WebElement multipleframe = driver.findElement(By.xpath("//iframe[@src='MultipleFrames.html']"));
+		driver.switchTo().frame(multipleframe);
+		
+		WebElement singleframe = driver.findElement(By.xpath("//iframe[@src='SingleFrame.html']"));
+		driver.switchTo().frame(singleframe);
+		
+		driver.findElement(By.xpath("//input[@type='text']")).sendKeys("single frame with in multi frame");
+		driver.switchTo().defaultContent();
 	}
 	
 	@BeforeMethod
