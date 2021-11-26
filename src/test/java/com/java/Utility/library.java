@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -123,6 +124,36 @@ public class library {
 			search = By.partialLinkText(value);
 		}
 		return driver.findElement(search);
+		
+	}
+	
+	public static List<WebElement> FindElements(String Orep){
+		String locatorValue = Orep;
+		System.out.println(locatorValue);
+		String locator = locatorValue.split("&")[0];
+		String value = locatorValue.split("&")[1];
+		System.out.println("locator: "+locator);
+		System.out.println("value: "+value);
+		
+		By search = null;
+		if(locator.equalsIgnoreCase("id")){
+			search = By.id(value);
+		}else if(locator.equalsIgnoreCase("name")){
+			search = By.name(value);
+		}else if(locator.equalsIgnoreCase("classname")){
+			search = By.className(value);
+		}else if(locator.equalsIgnoreCase("tagname")){
+			search = By.tagName(value);
+		}else if(locator.equalsIgnoreCase("xpath")){
+			search = By.xpath(value);
+		}else if(locator.equalsIgnoreCase("css")){
+			search = By.cssSelector(value);
+		}else if(locator.equalsIgnoreCase("linkText")){
+			search = By.linkText(value);
+		}else if(locator.equalsIgnoreCase("partiallinkText")){
+			search = By.partialLinkText(value);
+		}
+		return driver.findElements(search);
 		
 	}
 }

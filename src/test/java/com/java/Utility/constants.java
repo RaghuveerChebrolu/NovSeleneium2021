@@ -15,6 +15,6 @@ public class constants {
 	
 	public static final String singleFrametextbox="inside single frame";
 	public static final String MultiFrametextbox="single frame with in multi frame";
-	
+	public static final String WebTableLastName="Wagner";
 	
 }

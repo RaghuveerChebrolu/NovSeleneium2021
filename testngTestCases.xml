@@ -3,23 +3,15 @@
 <suite name="Suite">
 	<test thread-count="5" name="Test">
 		<classes>
-		<!-- 	<class name="com.testNg.TestCases.testNgTestCases">
-				<methods>
-					<include name="ValidateGMOOnLineLoadedSuccessfully"></include>
-					
-				</methods>
-			</class>
-			<class name="com.testNg.TestCases.testNgAnnotations">
-				<methods>
-					<include name="testcase4"></include>
-					<include name="testcase1"></include>
-				</methods>
-			</class> -->
-			<class name="com.testNg.TestCases.testNgAnnotations3">
-				<methods>
-					<include name="testCase1"></include>
-					<include name="testCase5"></include>
-				</methods>
+			<!-- <class name="com.testNg.TestCases.testNgTestCases"> <methods> <include 
+				name="ValidateGMOOnLineLoadedSuccessfully"></include> </methods> </class> 
+				<class name="com.testNg.TestCases.testNgAnnotations"> <methods> <include 
+				name="testcase4"></include> <include name="testcase1"></include> </methods> 
+				</class> -->
+			<!-- <class name="com.testNg.TestCases.testNgAnnotations3"> <methods> 
+				<include name="testCase1"></include> <include name="testCase5"></include> 
+				</methods> </class> -->
+			<class name="com.testNg.TestCases.testNgTestCases2">
 			</class>
 		</classes>
 	</test> <!-- Test -->

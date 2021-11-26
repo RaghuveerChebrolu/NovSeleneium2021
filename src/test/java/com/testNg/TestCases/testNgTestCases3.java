@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -144,7 +145,7 @@ public class testNgTestCases3 extends library{
 	}
 
 	@Test(priority = 4)
-	public void ValditingHAndlingOfFrames() throws InterruptedException {
+	public void ValditingHandlingOfFrames() throws InterruptedException {
 		System.out.println("inside ValditingHAndlingOfFrames");
 		driver.navigate().to(ObjProperty.getProperty("FramesURL"));
 		waitForPageToLoad();
@@ -205,6 +206,35 @@ public class testNgTestCases3 extends library{
 			
 		}
 		driver.switchTo().window(ParentWindow);
+	}
+	
+	@Test(priority=6)
+	public void HanlingWebTable(){
+		System.out.println("inside HanlingWebTable");
+		driver.navigate().to(ObjProperty.getProperty("WebTableURL"));
+		waitForPageToLoad();
+		String UserInput_LastName = constants.WebTableLastName;
+		List<WebElement> AllNames = library.FindElements(ObjRepo.WebTableAllLastNames);
+		System.out.println("AllNames: "+AllNames);
+		for(int i=0;i<AllNames.size();i++){
+			String Script_LastName = AllNames.get(i).getText();
+			System.out.println(Script_LastName);
+			int row = i+1;
+			if(Script_LastName.equalsIgnoreCase("wagner")){
+				String Office = driver.findElement(By.xpath("//table[@id='example']/tbody/tr["+row+"]/td[5]")).getText();
+				String StartDate = driver.findElement(By.xpath("//table[@id='example']/tbody/tr["+row+"]/td[6]")).getText();
+				String Salary = driver.findElement(By.xpath("//table[@id='example']/tbody/tr["+row+"]/td[7]")).getText();
+				String Position = driver.findElement(By.xpath("//table[@id='example']/tbody/tr["+row+"]/td[4]")).getText();
+				String FistName = driver.findElement(By.xpath("//table[@id='example']/tbody/tr["+row+"]/td[2]")).getText();
+				System.out.println("details of employee with "+UserInput_LastName+" :"+Office+" " + StartDate+ " "+Salary +" "+Position+" "+FistName);
+				System.out.println("StartDate:"+StartDate);
+				System.out.println("Salary:"+Salary);
+				System.out.println("Position:"+Position);
+				System.out.println("FistName:"+FistName);
+				break;
+			}
+		}
+		
 	}
 
 	@BeforeMethod

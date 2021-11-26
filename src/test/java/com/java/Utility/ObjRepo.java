@@ -8,7 +8,7 @@ public class ObjRepo {
 	public static final String QTY_BACKPACKS = constants.Name+"&"+"QTY_BACKPACKS";
 	public static final String MuntipleFrames = constants.xpath+"&"+"//iframe[@src='MultipleFrames.html']";
 	public static final String Single_Frame = constants.xpath+"&"+"//iframe[@src='SingleFrame.html']";
-	
+	public static final String WebTableAllLastNames = constants.xpath+"&"+"//table[@id='example']/tbody/tr/td[3]";
 	
 	
 }
