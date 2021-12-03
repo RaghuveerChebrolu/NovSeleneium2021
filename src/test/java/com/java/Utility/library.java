@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -50,9 +54,22 @@ public class library {
 			driver = new InternetExplorerDriver();
 			break;
 		case "chrome":
+			/*WebDriverManager.chromedriver().setup();
+			ChromeOptions objChromeOptions = new ChromeOptions();
+			objChromeOptions.setAcceptInsecureCerts(true);
+			driver = new ChromeDriver(objChromeOptions);
+			DesiredCapabilities ObjDesiredCap = DesiredCapabilities.chrome();
+			ObjDesiredCap.setCapability(ChromeOptions.CAPABILITY, objChromeOptions);
+			ObjDesiredCap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+			*/
 			WebDriverManager.chromedriver().setup();
 			ChromeOptions objChromeOptions = new ChromeOptions();
 			objChromeOptions.setAcceptInsecureCerts(true);
+			Map<String,Object> chromePrefs = new HashMap<String,Object>();
+			chromePrefs.put("profile.default_content_settings.popups", 0);
+			chromePrefs.put("download.prompt_for_download", false);
+			chromePrefs.put("download.default_directory", System.getProperty("user.dir"));
+			objChromeOptions.setExperimentalOption("prefs", chromePrefs);
 			driver = new ChromeDriver(objChromeOptions);
 			DesiredCapabilities ObjDesiredCap = DesiredCapabilities.chrome();
 			ObjDesiredCap.setCapability(ChromeOptions.CAPABILITY, objChromeOptions);
@@ -155,5 +172,24 @@ public class library {
 		}
 		return driver.findElements(search);
 		
+	}
+	
+	public static void verifyinglinks(String Url) throws Exception {
+		try {
+			URL obj = new URL(Url);
+			HttpURLConnection objHttpConnection = (HttpURLConnection) obj.openConnection();
+			objHttpConnection.connect();
+			int ResponseCode = objHttpConnection.getResponseCode();
+			if (ResponseCode >= 400 && ResponseCode < 600) {
+				System.out.println(Url + ": " + "ResponseCode:" + ResponseCode + " is not a valid Link");
+			} else if (ResponseCode >= 200 && ResponseCode < 400) {
+				System.out.println(Url + ": " + "ResponseCode:" + ResponseCode + " is a valid Link");
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }
