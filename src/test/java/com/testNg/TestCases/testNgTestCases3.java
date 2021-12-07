@@ -3,6 +3,7 @@ package com.testNg.TestCases;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import com.aventstack.extentreports.Status;
 import com.google.inject.spi.Elements;
 import com.java.Utility.ObjRepo;
 import com.java.Utility.constants;
@@ -49,6 +50,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
@@ -62,6 +64,7 @@ public class testNgTestCases3 extends library {
 	@Test(priority = 0)
 	public void ValidateGMOOnLineLoadedSuccessfully() {
 		System.out.println("inside testcase1");
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		waitForPageToLoad();
 		String GMOtitle = driver.getTitle();
 		System.out.println(GMOtitle);
@@ -70,7 +73,9 @@ public class testNgTestCases3 extends library {
 	}
 
 	@Test(priority = 1, dependsOnMethods = { "ValidateGMOOnLineLoadedSuccessfully" })
+	
 	public void ValidateEnterGmoOnLine() throws InterruptedException {
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		System.out.println("inside ValidateEnterGmoOnLine");
 		driver.findElement(By.name("bSubmit")).click();
 		waitForPageToLoad();
@@ -91,6 +96,7 @@ public class testNgTestCases3 extends library {
 
 	@Test(priority = 2, dependsOnMethods = { "ValidateEnterGmoOnLine" })
 	public void ValidatePlaceOrderPage() {
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		waitForPageToLoad();
 		String Title = driver.findElement(By.xpath("//h1[contains(text(),'Place Order')]")).getText();
 		System.out.println("Title: " + Title);
@@ -113,6 +119,7 @@ public class testNgTestCases3 extends library {
 	@Test(priority = 3)
 	public void ValidatingAlerts() {
 		System.out.println("inside ValidatingAlerts");
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(ObjProperty.getProperty("AlertURL"));
 		waitForPageToLoad();
 		driver.findElement(By.id("alertButton")).click();
@@ -157,6 +164,7 @@ public class testNgTestCases3 extends library {
 	@Test(priority = 4)
 	public void ValditingHandlingOfFrames() throws InterruptedException {
 		System.out.println("inside ValditingHAndlingOfFrames");
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(ObjProperty.getProperty("FramesURL"));
 		waitForPageToLoad();
 		driver.switchTo().frame("singleframe");
@@ -194,6 +202,7 @@ public class testNgTestCases3 extends library {
 	@Test(priority = 5)
 	public void HandlingOfWindows() {
 		System.out.println("inside HandlingOfWindows");
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(ObjProperty.getProperty("WindowsURL"));
 		waitForPageToLoad();
 		String ParentWindow = driver.getWindowHandle();
@@ -223,6 +232,7 @@ public class testNgTestCases3 extends library {
 	@Test(priority = 6)
 	public void HanlingWebTable() {
 		System.out.println("inside HanlingWebTable");
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(ObjProperty.getProperty("WebTableURL"));
 		waitForPageToLoad();
 		String UserInput_LastName = constants.WebTableLastName;
@@ -258,6 +268,7 @@ public class testNgTestCases3 extends library {
 	@Test(priority = 7)
 	public void MouseOperationRightClick() {
 		System.out.println("inside MouseOperationRightClick");
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(ObjProperty.getProperty("mouseOpeartionRightClick"));
 		waitForPageToLoad();
 		WebElement element = library.FindElement(ObjRepo.MouseOperationRightClick);
@@ -273,6 +284,7 @@ public class testNgTestCases3 extends library {
 	@Test(priority = 8)
 	public void MouseOperationDoubleClick() throws InterruptedException {
 		System.out.println("inside MouseOperationDoubleClick");
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(ObjProperty.getProperty("mouseOpeartionDoubleClick"));
 		waitForPageToLoad();
 		Thread.sleep(4000);
@@ -307,6 +319,7 @@ public class testNgTestCases3 extends library {
 	@Test(priority = 9)
 	public void MouseDragAndDrop() {
 		System.out.println("inside MouseDragAndDrop");
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(ObjProperty.getProperty("mouseOperationDragAndDrop"));
 		waitForPageToLoad();
 		WebElement element = library.FindElement(ObjRepo.MouseOperationframe);
@@ -327,6 +340,7 @@ public class testNgTestCases3 extends library {
 	@Test(priority = 10)
 	public void validatingLinks() {
 		System.out.println("inside validatingLinks");
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(ObjProperty.getProperty("ValidatingLinks"));
 		waitForPageToLoad();
 		List<WebElement> AllLinks = library.FindElements(ObjRepo.links);
@@ -346,6 +360,7 @@ public class testNgTestCases3 extends library {
 	@Test(priority=11)
 	public void ValidatingFileUpload() throws AWTException, InterruptedException{
 		System.out.println("inside ValidatingFileUpload");
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(ObjProperty.getProperty("FileUpload"));
 		waitForPageToLoad();
 		Thread.sleep(10000);
@@ -385,9 +400,10 @@ public class testNgTestCases3 extends library {
 		
 	}
 
-	@Test(priority=11)
+	@Test(priority=12)
 	public void ValidatingFileDownload() throws AWTException, InterruptedException{
 		System.out.println("inside ValidatingFileDownload");
+		ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(ObjProperty.getProperty("FileDownload"));
 		waitForPageToLoad();
 		library.FindElement(ObjRepo.FileDownload100kb).click();
@@ -414,13 +430,28 @@ public class testNgTestCases3 extends library {
 	}
 
 	@AfterMethod
-	public void afterMethod() {
+	public void afterMethod(ITestResult result) throws Exception {
 		System.out.println("inside afterMethod");
+		if(result.getStatus()==ITestResult.FAILURE){
+			// to add test case name in extent report
+			ExtTest.log(Status.FAIL, "TEST CASE FAILED IS " + result.getName());
+			// to add error/exception that occured in extent report
+			ExtTest.log(Status.FAIL, "Failed TEST CASE Error Is " + result.getThrowable());
+			String screenshotPath = library.takescreeshot(driver, result.getName());
+			// adding screen shot in extent report
+			ExtTest.addScreenCaptureFromPath(screenshotPath);
+		} else if (result.getStatus() == ITestResult.SKIP) {
+			ExtTest.log(Status.SKIP, "Test Case SKIPPED IS " + result.getName());
+		}
+		else if (result.getStatus() == ITestResult.SUCCESS) {
+			ExtTest.log(Status.PASS, "Test Case PASSED IS " + result.getName());
+		}
 	}
 
 	@BeforeClass
 	public void beforeClass() {
 		System.out.println("inside beforeClass");
+		startExententReport();
 	}
 
 	@AfterClass
@@ -437,6 +468,7 @@ public class testNgTestCases3 extends library {
 	@AfterTest
 	public void afterTest() {
 		System.out.println("inside afterTest");
+		ExtReports.flush();// after this line execution export report will be generated
 	}
 
 	@BeforeSuite
