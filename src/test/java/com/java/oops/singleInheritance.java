@@ -1,4 +1,4 @@
-package com.java.OOPsConcepts;
+package com.java.oops;
 
 class Employee {
 	float salary = 40000; // parent class instance variable
