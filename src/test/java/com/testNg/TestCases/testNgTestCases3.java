@@ -26,15 +26,22 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -48,6 +55,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -60,6 +68,7 @@ import org.testng.annotations.AfterSuite;
 public class testNgTestCases3 extends library {
 	// WebDriver driver;
 	// Properties ObjProperty = new Properties();
+	HashMap<String,String> testdata = new HashMap<String,String>();
 
 	@Test(priority = 0)
 	public void ValidateGMOOnLineLoadedSuccessfully() {
@@ -424,6 +433,165 @@ public class testNgTestCases3 extends library {
 		obj_File.deleteOnExit();
 	}
 	
+	@Test(priority=13)
+	public void ValidateDatDriven() throws IOException, InterruptedException, AWTException{
+		try {
+			System.out.println("inside ValidateDatDriven");
+			ExtTest = ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
+			driver.navigate().to(ObjProperty.getProperty("AutomationRegister"));
+			waitForPageToLoad();
+			FileInputStream objFileInuptStream = new FileInputStream(new File (System.getProperty("user.dir")+"//src//test//resources//AutomationDemoSite.xlsx"));
+			XSSFWorkbook objXSSFWorkbook = new XSSFWorkbook(objFileInuptStream);
+			XSSFSheet objXSSFSheet = objXSSFWorkbook.getSheet("TestData");
+			int TotalRows = objXSSFSheet.getLastRowNum();
+			 System.out.println("TotalRows:"+TotalRows);
+			for(int row=1;row<=TotalRows;row++){
+				testdata = ReadExcelFile(objXSSFSheet,row);
+				/*System.out.println("--------------------");
+				System.out.println(testdata.get("FirstName"));
+				System.out.println(testdata.get("Address"));
+				System.out.println("--------------------");*/
+				if(testdata.get("RunMode").equals("Yes")){
+				library.FindElement(ObjRepo.DataDivenFirstName).clear();
+				library.FindElement(ObjRepo.DataDivenFirstName).sendKeys(testdata.get("FirstName"));
+				library.FindElement(ObjRepo.DataDivenLastName).clear();
+				library.FindElement(ObjRepo.DataDivenLastName).sendKeys(testdata.get("LastName"));
+				library.FindElement(ObjRepo.DataDivenAddress).clear();
+				library.FindElement(ObjRepo.DataDivenAddress).sendKeys(testdata.get("Address"));
+				library.FindElement(ObjRepo.DataDivenEmail).clear();
+				library.FindElement(ObjRepo.DataDivenEmail).sendKeys(testdata.get("EmailAddress"));
+				library.FindElement(ObjRepo.DataDivenTelephone).clear();
+				library.FindElement(ObjRepo.DataDivenTelephone).sendKeys(testdata.get("PhoneNumber"));
+				
+				if(testdata.get("Gender").equals("Male")){
+					library.FindElement(ObjRepo.DataDivenGenderMale).click();
+				}else{
+					library.FindElement(ObjRepo.DataDivenGenderFeMale).click();
+				}
+				
+				if(testdata.get("Hobbies").equals("Cricket")){
+					library.FindElement(ObjRepo.DataDivenHobbiesCricket).click();
+				}else if(testdata.get("Hobbies").equals("Movies")){
+					library.FindElement(ObjRepo.DataDivenHobbiesMovies).click();
+				}else if(testdata.get("Hobbies").equals("Hockey")){
+					library.FindElement(ObjRepo.DataDivenHobbiesHockey).click();
+				}
+				
+				Thread.sleep(2000);
+				library.FindElement(ObjRepo.DataDivenSkills).click();
+				Thread.sleep(2000);
+				List<WebElement> AllSkills = library.FindElements(ObjRepo.DataDiven_AllSkills);
+				SelectValueFromDropDown(AllSkills,testdata.get("Skills"));
+				
+				library.FindElement(ObjRepo.DataDrivenSelectCntry).click();
+				List<WebElement> AllCountries= library.FindElements(ObjRepo.DataDrivenAllCntries);
+				//Declare and initialise a fluent wait
+				FluentWait wait = new FluentWait(driver);
+				//Specify the timout of the wait
+				wait.withTimeout(60, TimeUnit.SECONDS);
+				//Sepcify polling time
+				wait.pollingEvery(250, TimeUnit.MILLISECONDS);
+				//Specify what exceptions to ignore
+				wait.ignoring(StaleElementReferenceException.class);
+
+				//This is how we specify the condition to wait on.
+				wait.until(ExpectedConditions.visibilityOfAllElements(AllCountries));
+				//SelectValueFromDropDown(AllCountries,testData.get("SelectCntry"));
+				
+				library.FindElement(ObjRepo.DataDrivenTextAreacountry).sendKeys(testdata.get("SelectCountry"));
+				Robot objrobot = new Robot();
+				objrobot.keyPress(KeyEvent.VK_ENTER);
+				objrobot.keyRelease(KeyEvent.VK_ENTER);
+				
+				if(row>1){
+					library.FindElement(ObjRepo.DataDrivencloseIconLanguage).click();
+				}
+				library.FindElement(ObjRepo.DataDivenLanguage).click();
+				Thread.sleep(2000);
+				List<WebElement> AllLanguages = library.FindElements(ObjRepo.DataDivenList_languages);
+				SelectValueFromDropDownLanguage(AllLanguages,testdata.get("Languages"));
+					
+				WebElement element =library.FindElement(ObjRepo.DataDrivenskillslabel);
+				element.click();
+				
+				library.FindElement(ObjRepo.DataDrivenDOB_YY).click();
+				List<WebElement> AllYears= library.FindElements(ObjRepo.DataDrivenAllYears);
+				SelectValueFromDropDown(AllYears,testdata.get("DOB_YY"));
+				
+				library.FindElement(ObjRepo.DataDrivenDOB_MM).click();
+				List<WebElement> AllMonths= library.FindElements(ObjRepo.DataDrivenAllMonths);
+				SelectValueFromDropDown(AllMonths,testdata.get("DOB_MM"));
+				
+				library.FindElement(ObjRepo.DataDrivenDOB_DD).click();
+				List<WebElement> AllDays= library.FindElements(ObjRepo.DataDrivenAllDays);
+				SelectValueFromDropDown(AllDays,testdata.get("DOB_DD"));
+				
+				library.FindElement(ObjRepo.DataDrivenPwd).clear();
+				library.FindElement(ObjRepo.DataDrivenPwd).sendKeys(testdata.get("Password"));
+				library.FindElement(ObjRepo.DataDrivenConfirmPassword).clear();
+				library.FindElement(ObjRepo.DataDrivenConfirmPassword).sendKeys(testdata.get("confirmPassword"));
+				
+				FileOutputStream objFileOutputStream =  new FileOutputStream(new File (System.getProperty("user.dir")+"//src//test//resources//AutomationDemoSite.xlsx"));
+				WriteToExcelFile(objXSSFWorkbook,objXSSFSheet,row);
+				objXSSFWorkbook.write(objFileOutputStream);
+				objFileOutputStream.close();
+				}else{
+					System.out.println("RunMode is not set as Yes in Excel file for row:"+row);
+				}
+			}
+			objXSSFWorkbook.close();
+			objFileInuptStream.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	private void WriteToExcelFile(XSSFWorkbook objXSSFWorkbook, XSSFSheet objXSSFSheet, int row) {
+		objXSSFSheet = objXSSFWorkbook.getSheet("TestData");
+		XSSFCellStyle CellStyle = objXSSFWorkbook.createCellStyle();
+		// CellStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+		System.out.println("Row Number in excel is :" + row);
+
+		objXSSFSheet.getRow(row).createCell(18).setCellValue("PASS");
+		objXSSFSheet.getRow(row).getCell(18).setCellStyle(CellStyle);
+		
+	}
+
+	private HashMap<String, String> ReadExcelFile(XSSFSheet objXSSFSheet, int row) {
+		DataFormatter Format = new DataFormatter();
+		testdata.put("RunMode", objXSSFSheet.getRow(row).getCell(0).getStringCellValue());
+		testdata.put("TestCaseName", objXSSFSheet.getRow(row).getCell(1).getStringCellValue());
+		testdata.put("FirstName", objXSSFSheet.getRow(row).getCell(2).getStringCellValue());
+		testdata.put("LastName", objXSSFSheet.getRow(row).getCell(3).getStringCellValue());
+		testdata.put("Address", objXSSFSheet.getRow(row).getCell(4).getStringCellValue());
+		testdata.put("EmailAddress", objXSSFSheet.getRow(row).getCell(5).getStringCellValue());
+		
+		String PhoneNumber = Format.formatCellValue(objXSSFSheet.getRow(row).getCell(6));
+		testdata.put("PhoneNumber", PhoneNumber);
+		
+		testdata.put("Gender", objXSSFSheet.getRow(row).getCell(7).getStringCellValue());
+		testdata.put("Hobbies", objXSSFSheet.getRow(row).getCell(8).getStringCellValue());
+		testdata.put("Languages", objXSSFSheet.getRow(row).getCell(9).getStringCellValue());
+		testdata.put("Skills", objXSSFSheet.getRow(row).getCell(10).getStringCellValue());
+		testdata.put("Country", objXSSFSheet.getRow(row).getCell(11).getStringCellValue());
+		testdata.put("SelectCountry", objXSSFSheet.getRow(row).getCell(12).getStringCellValue());
+		
+		String DOB_YY = Format.formatCellValue(objXSSFSheet.getRow(row).getCell(13));
+		testdata.put("DOB_YY", DOB_YY);
+		
+		testdata.put("DOB_MM", objXSSFSheet.getRow(row).getCell(14).getStringCellValue());
+		
+		String DOB_DD = Format.formatCellValue(objXSSFSheet.getRow(row).getCell(15));
+		testdata.put("DOB_DD", DOB_DD);
+		
+		testdata.put("Password", objXSSFSheet.getRow(row).getCell(16).getStringCellValue());
+		testdata.put("confirmPassword", objXSSFSheet.getRow(row).getCell(17).getStringCellValue());					
+
+		return testdata;
+	}
+
 	@BeforeMethod
 	public void beforeMethod() {
 		System.out.println("inside beforeMethod");
@@ -447,7 +615,7 @@ public class testNgTestCases3 extends library {
 			ExtTest.log(Status.PASS, "Test Case PASSED IS " + result.getName());
 		}
 	}
-
+	
 	@BeforeClass
 	public void beforeClass() {
 		System.out.println("inside beforeClass");

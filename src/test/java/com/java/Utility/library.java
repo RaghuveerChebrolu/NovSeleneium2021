@@ -266,4 +266,29 @@ public class library {
 		FileUtils.copyFile(source, new File(destination));
 		return destination;
 	}
+	
+	public void SelectValueFromDropDown(List<WebElement> AllItems, String testDataExcelValue) {
+		for(int i=0;i<AllItems.size();i++){
+			String dropDownValue=AllItems.get(i).getText().trim();
+			if(dropDownValue.equalsIgnoreCase(testDataExcelValue.trim())){
+				AllItems.get(i).click();
+				/*JavascriptExecutor jse = (JavascriptExecutor)driver;
+				jse.executeScript("arguments[0].click()", AllItems.get(i));*/
+			}
+		}
+		
+		
+	}
+	
+	public void SelectValueFromDropDownLanguage(List<WebElement> AllItems, String testDataExcelValue) {
+		for(int i=0;i<AllItems.size();i++){
+			String dropDownValue=AllItems.get(i).getText().trim();
+			if(dropDownValue.equalsIgnoreCase(testDataExcelValue.trim())){
+				//AllItems.get(i).click();
+				JavascriptExecutor jse = (JavascriptExecutor)driver;
+				jse.executeScript("arguments[0].click()", AllItems.get(i));
+			}
+		}	
+		
+	}
 }
